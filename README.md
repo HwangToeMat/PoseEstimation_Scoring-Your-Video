@@ -14,6 +14,12 @@ AlphaPose를 backbone으로 사용하여 영상의 자세를 추정하였고, �
 
 <img src="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/img/img_0.jpg?raw=true" style="max-width:100%;margin-left: auto; margin-right: auto; display: block;">
 
+이미지마다 **높이와 너비가 다르고, 사람의 위치와 크기 또한 다르기때문에** 이를 고려하여 l2 normalization을 진행해야한다. 따라서 다음의 **두 가지 단계**를 통해 이를 구현하였다.
+
+1. 검출된 사람의 바운딩 박스를 1대1 비율로 crop한다.
+
+2. crop된 박스에서 각 부위별 좌표값으로 l2 normalization을 한다.
+
 ```
 # usage
 
@@ -23,7 +29,7 @@ i2v.l2_normalize("data/video/result/alphapose-TKD_1.json")
 
 [{"image_id": "TKD_1.png", "category_id": 1, "keypoints": [706.6857299804688, 165.55355834960938, 0.9743795990943909, 722.0609741210938, 142.49066162109375, 0.9858314990997314, ....], "score": 3.09490704536438, "box": [536.5984497070312, 60.53300857543945, 425.3385009765625, 787.2135124206543], "idx": [0.0]}]
 
-# outpur json
+# output json
 
 [{"image_id": "TKD_1.png", "category_id": 1, "keypoints": [0.19470483935752733, 0.03471309514819291, 0.9743795990943909, 0.19978691437930066, 0.02708997252836812, 0.9858314990997314, ....], "score": 3.09490704536438, "box": [536.5984497070312, 60.53300857543945, 425.3385009765625, 787.2135124206543], "idx": [0.0]}]
 ```
@@ -34,7 +40,7 @@ i2v.l2_normalize("data/video/result/alphapose-TKD_1.json")
 
 **이 code에서는 위와 같은 기능을 구현하기 위해 세 가지 알고리즘을 제안하였다.**
 
-1. Cosine Similarity
+**1. Cosine Similarity**
 
 <img src="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/img/cos.png?raw=true" style="max-width:100%;margin-left: auto; margin-right: auto; display: block;">
 
@@ -46,7 +52,7 @@ i2v.l2_normalize("data/video/result/alphapose-TKD_1.json")
 Score = i2v.cos_sim("data/image/result/alphapose-TKD_6_l2norm.json","data/video/result/alphapose-TKD_test_l2norm.json", "data/image/TKD/TKD_6.png", 'data/video/TKD_test.mp4')
 ```
 
-2. Weight Matching(l1 norm)
+**2. Weight Matching(l1 norm)**
 
 <img src="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/img/wm.png?raw=true" style="max-width:100%;margin-left: auto; margin-right: auto; display: block;">
 
@@ -58,7 +64,7 @@ Score = i2v.cos_sim("data/image/result/alphapose-TKD_6_l2norm.json","data/video/
 Score = i2v.weightmatch("data/image/result/alphapose-TKD_6_l2norm.json","data/video/result/alphapose-TKD_test_l2norm.json", "data/image/TKD/TKD_6.png", 'data/video/TKD_test.mp4')
 ```
 
-3. Weight Matching(l2 norm)
+**3. Weight Matching(l2 norm)**
 
 두 자세를 비교할때 **더 정확히 추론된 부위에 가중치를 주어 계산**하는 방법이다. 이를 0~100사이 값으로 점수화 하여 출력하였다. 2번의 방법과 유사하지만 **l2 norm을 사용**하였다.
 
@@ -72,11 +78,16 @@ Score = i2v.l2_weightmatch("data/image/result/alphapose-TKD_6_l2norm.json","data
 
 <img src="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/result_3.png?raw=true" style="max-width:100%;margin-left: auto; margin-right: auto; display: block;">
 
-위의 결과는 태권도 품세중 '고려'의 일부 구간을 11초동안 동작한 영상과 33초동안 동작한 영상을 비교한 결과이다.
+위의 결과는 태권도 품세중 '고려'의 일부 구간을 **11초동안 동작한 영상**과 **33초동안 동작한 영상**을 비교한 결과이다.
 
-기존의 방법(Euclidean)으로는 두 동영상의 유사도를 비교할때 같은 동작이더라도 영상간의 시점이 다르거나 동작의 실행속도가 달라 채점하기 어려운 점이 있었다. 하지만 이 code에서는 Dynamic Time Warping을 사용하여 이러한 문제점을 해결하였다. 
+**기존의 방법(Euclidean)으로는** 두 동영상의 유사도를 비교할때 같은 동작이더라도 영상간의 시점이 다르거나 동작의 **실행속도가 다르면 비교할 수 없었다.** 하지만 이 code에서는 **Dynamic Time Warping을 사용하여 이러한 문제점을 해결**하였다. 
 
 <img src="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/img/DTW.jpg?raw=true" style="max-width:100%;margin-left: auto; margin-right: auto; display: block;">
 
-Frame의 흐름을 x축으로 놓고 추정된 자세의 값을 y축으로 놓았을때 위과같은 그래프가 형성된다. 이때 Dynamic Time Warping은 기존의 방법(Euclidean)과 다르게 같은 시점을 기준으로 비교하는 것이아닌 값의 흐름을 기준으로 비교하여, 두 영상간의 길이가 다르더라도 비교할 수 있게 된다.
+Frame의 흐름을 x축으로 놓고 추정된 자세의 값을 y축으로 놓았을때 위와 같은 그래프가 형성된다. 이때 Dynamic Time Warping은 기존의 방법(Euclidean)과 다르게 같은 시점을 기준으로 비교하는 것이 아닌 **값의 흐름을 기준으로 비교**하여, **두 영상간의 길이가 다르더라도 비교할 수 있게 된다.**
+
+```
+# usage
+Score = i2v.dtw_compare("data/video/result/alphapose-TKD_test_l2norm.json","data/video/result/alphapose-TKD_slow_l2norm.json")
+```
 
