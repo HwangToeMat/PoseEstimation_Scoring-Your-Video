@@ -1,11 +1,5 @@
 # PoseEstimation_Scoring-Your-Video <a href="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/Compare_pose.ipynb">[Demo]</a>
 
-## Usage
-
-```
-import Compare_pose as i2v
-```
-
 ## 주요 기능
 
 AlphaPose를 backbone으로 사용하여 영상의 자세를 추정하였고, 추정된 값을 사용하여 아래의 기능을 구현하였다.
@@ -23,7 +17,7 @@ AlphaPose를 backbone으로 사용하여 영상의 자세를 추정하였고, �
 ```
 # usage
 
-i2v.l2_normalize("data/video/result/alphapose-TKD_1.json")
+Compare_pose.l2_normalize("data/video/result/alphapose-TKD_1.json")
 
 # input json
 
@@ -49,7 +43,7 @@ i2v.l2_normalize("data/video/result/alphapose-TKD_1.json")
 ```
 # usage
 
-Score = i2v.cos_sim("data/image/result/alphapose-TKD_6_l2norm.json","data/video/result/alphapose-TKD_test_l2norm.json", "data/image/TKD/TKD_6.png", 'data/video/TKD_test.mp4')
+Score = Compare_pose.cos_sim("data/image/result/alphapose-TKD_6_l2norm.json","data/video/result/alphapose-TKD_test_l2norm.json", "data/image/TKD/TKD_6.png", 'data/video/TKD_test.mp4')
 ```
 
 **2. Weight Matching(l1 norm)**
@@ -61,7 +55,7 @@ Score = i2v.cos_sim("data/image/result/alphapose-TKD_6_l2norm.json","data/video/
 ```
 # usage
 
-Score = i2v.weightmatch("data/image/result/alphapose-TKD_6_l2norm.json","data/video/result/alphapose-TKD_test_l2norm.json", "data/image/TKD/TKD_6.png", 'data/video/TKD_test.mp4')
+Score = Compare_pose.weightmatch("data/image/result/alphapose-TKD_6_l2norm.json","data/video/result/alphapose-TKD_test_l2norm.json", "data/image/TKD/TKD_6.png", 'data/video/TKD_test.mp4')
 ```
 
 **3. Weight Matching(l2 norm)**
@@ -71,7 +65,7 @@ Score = i2v.weightmatch("data/image/result/alphapose-TKD_6_l2norm.json","data/vi
 ```
 # usage
 
-Score = i2v.l2_weightmatch("data/image/result/alphapose-TKD_6_l2norm.json","data/video/result/alphapose-TKD_test_l2norm.json", "data/image/TKD/TKD_6.png", 'data/video/TKD_test.mp4')
+Score = Compare_pose.l2_weightmatch("data/image/result/alphapose-TKD_6_l2norm.json","data/video/result/alphapose-TKD_test_l2norm.json", "data/image/TKD/TKD_6.png", 'data/video/TKD_test.mp4')
 ```
 
 ### 2. 특정 동작을 하고 있는 두 영상을 비교하여 각 부위별로 유사도를 채점하여 보여준다. (두 영상의 길이와 속도에 영향을 받지 않는다.)
@@ -88,6 +82,6 @@ Frame의 흐름을 x축으로 놓고 추정된 자세의 값을 y축으로 놓�
 
 ```
 # usage
-Score = i2v.dtw_compare("data/video/result/alphapose-TKD_test_l2norm.json","data/video/result/alphapose-TKD_slow_l2norm.json")
+Score = Compare_pose.dtw_compare("data/video/result/alphapose-TKD_test_l2norm.json","data/video/result/alphapose-TKD_slow_l2norm.json")
 ```
 
