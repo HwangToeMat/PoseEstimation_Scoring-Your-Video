@@ -32,7 +32,7 @@ Compare_pose.l2_normalize("data/video/result/alphapose-TKD_1.json")
 
 <img src="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/result_1.png?raw=true" style="max-width:100%;margin-left: auto; margin-right: auto; display: block;">
 
-**이 code에서는 위와 같은 기능을 구현하기 위해 세 가지 알고리즘을 제안하였다.**
+이 code에서는 위와 같은 기능을 구현하기 위해 **세 가지 알고리즘**을 제안하였다.
 
 **1. Cosine Similarity**
 
