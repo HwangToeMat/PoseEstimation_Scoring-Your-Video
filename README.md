@@ -17,6 +17,14 @@ AlphaPose를 backbone으로 사용하여 영상의 자세를 추정하였고, �
 ```
 # usage
 
+!python alphapose_compare.py --video /data/video/TKD_slow.mp4 --save_video --outdir /data/video/result
+
+!python alphapose_compare.py --image /data/image/TKD/TKD_6.png --save_img --outdir /data/image/result
+
+## python
+
+import Compare_pose
+
 Compare_pose.l2_normalize("data/video/result/alphapose-TKD_1.json")
 
 # input json
@@ -42,6 +50,9 @@ Compare_pose.l2_normalize("data/video/result/alphapose-TKD_1.json")
 
 ```
 # usage
+## python
+
+import Compare_pose
 
 Score = Compare_pose.cos_sim("data/image/result/alphapose-TKD_6_l2norm.json","data/video/result/alphapose-TKD_test_l2norm.json", "data/image/TKD/TKD_6.png", 'data/video/TKD_test.mp4')
 ```
@@ -54,6 +65,9 @@ Score = Compare_pose.cos_sim("data/image/result/alphapose-TKD_6_l2norm.json","da
 
 ```
 # usage
+## python
+
+import Compare_pose
 
 Score = Compare_pose.weightmatch("data/image/result/alphapose-TKD_6_l2norm.json","data/video/result/alphapose-TKD_test_l2norm.json", "data/image/TKD/TKD_6.png", 'data/video/TKD_test.mp4')
 ```
@@ -64,6 +78,9 @@ Score = Compare_pose.weightmatch("data/image/result/alphapose-TKD_6_l2norm.json"
 
 ```
 # usage
+## python
+
+import Compare_pose
 
 Score = Compare_pose.l2_weightmatch("data/image/result/alphapose-TKD_6_l2norm.json","data/video/result/alphapose-TKD_test_l2norm.json", "data/image/TKD/TKD_6.png", 'data/video/TKD_test.mp4')
 ```
@@ -82,6 +99,10 @@ Frame의 흐름을 x축으로 놓고 추정된 자세의 값을 y축으로 놓�
 
 ```
 # usage
+## python
+
+import Compare_pose
+
 Score = Compare_pose.dtw_compare("data/video/result/alphapose-TKD_test_l2norm.json","data/video/result/alphapose-TKD_slow_l2norm.json")
 ```
 
