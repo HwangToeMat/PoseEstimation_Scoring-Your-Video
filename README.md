@@ -1,4 +1,4 @@
-# PoseEstimation_Scoring-Your-Video <a href="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/Compare_pose.ipynb">[demo]</a>
+# PoseEstimation_Scoring-Your-Video <a href="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/Compare_pose.ipynb">[Demo]</a>
 
 ## Usage
 
