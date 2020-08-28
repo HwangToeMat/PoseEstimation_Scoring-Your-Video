@@ -61,8 +61,9 @@ def weightmatch(label_json, input_json, label_img, input_video):
     with open(input_json) as f:
         ip_data = json.load(f)
 
-    high_score = 999999
+    high_score = 0
     highlight = ''
+    score_list = []
 
     for frame in range(len(ip_data)):
         ip_kpt = ip_data[frame]['keypoints']
@@ -72,18 +73,20 @@ def weightmatch(label_json, input_json, label_img, input_video):
         for _ in range(17):
             x = np.abs(ip_kpt[_ * 3] - label[_ * 3])
             y = np.abs(ip_kpt[_ * 3 + 1] - label[_ * 3 + 1])
-            temp = ip_kpt[_ * 3 + 2] * (x + y)
+            temp = (2 - (x + y))*50
             summation_1 += ip_kpt[_ * 3 + 2]
-            summation_2 += temp
+            summation_2 += ip_kpt[_ * 3 + 2] * temp
+            score_list.append(temp)
 
         score = summation_2 / summation_1
 
-        if high_score >= score:
+        if high_score <= score:
             high_score = score
             highlight = ip_data[frame]['image_id']
+            score_detail = score_list
 
     ip_img = cv2.imread(label_img)
-
+    ip_img = cv2.cvtColor(ip_img, cv2.COLOR_BGR2RGB)
     plt.figure(figsize=(18, 9))
     plt.subplot(1, 2, 1)
     plt.imshow(ip_img)
@@ -96,6 +99,7 @@ def weightmatch(label_json, input_json, label_img, input_video):
         try:
             ret, frame = cap.read()
             if fr_iter == int(highlight.split('.')[0]):
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 plt.subplot(1, 2, 2)
                 plt.imshow(frame)
                 plt.title('capture img')
@@ -105,7 +109,27 @@ def weightmatch(label_json, input_json, label_img, input_video):
         except:
             continue
 
-    return high_score, highlight
+    score_json = {}
+    score_json['Frame_Num'] = highlight.split('.')[0]
+    score_json['Total_Score'] = high_score
+    score_json['Head'] = np.mean(score_detail[0:5])
+    score_json['LShoulder'] = score_detail[5]
+    score_json['RShoulder'] = score_detail[6]
+    score_json['LElbow'] = score_detail[7]
+    score_json['RElbow'] = score_detail[8]
+    score_json['LWrist'] = score_detail[9]
+    score_json['RWrist'] = score_detail[10]
+    score_json['LHip'] = score_detail[11]
+    score_json['RHip'] = score_detail[12]
+    score_json['LKnee'] = score_detail[13]
+    score_json['Rknee'] = score_detail[14]
+    score_json['LAnkle'] = score_detail[15]
+    score_json['RAnkle'] = score_detail[16]
+
+    for (k, v) in score_json.items():
+        print(k, ' : ', v, '\n')
+
+    return score_json
 
 
 def l2_weightmatch(label_json, input_json, label_img, input_video):
@@ -116,8 +140,9 @@ def l2_weightmatch(label_json, input_json, label_img, input_video):
     with open(input_json) as f:
         ip_data = json.load(f)
 
-    high_score = 999999
+    high_score = 0
     highlight = ''
+    score_list = []
 
     for frame in range(len(ip_data)):
         ip_kpt = ip_data[frame]['keypoints']
@@ -127,18 +152,20 @@ def l2_weightmatch(label_json, input_json, label_img, input_video):
         for _ in range(17):
             x = (ip_kpt[_ * 3] - label[_ * 3])**2
             y = (ip_kpt[_ * 3 + 1] - label[_ * 3 + 1])**2
-            temp = ip_kpt[_ * 3 + 2] * np.sqrt(x + y)
+            temp = (np.sqrt(2) - np.sqrt(x + y))*(100/np.sqrt(2))
             summation_1 += ip_kpt[_ * 3 + 2]
-            summation_2 += temp
+            summation_2 += ip_kpt[_ * 3 + 2] * temp
+            score_list.append(temp)
 
         score = summation_2 / summation_1
 
-        if high_score >= score:
+        if high_score <= score:
             high_score = score
             highlight = ip_data[frame]['image_id']
+            score_detail = score_list
 
     ip_img = cv2.imread(label_img)
-
+    ip_img = cv2.cvtColor(ip_img, cv2.COLOR_BGR2RGB)
     plt.figure(figsize=(18, 9))
     plt.subplot(1, 2, 1)
     plt.imshow(ip_img)
@@ -151,6 +178,7 @@ def l2_weightmatch(label_json, input_json, label_img, input_video):
         try:
             ret, frame = cap.read()
             if fr_iter == int(highlight.split('.')[0]):
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 plt.subplot(1, 2, 2)
                 plt.imshow(frame)
                 plt.title('capture img')
@@ -160,7 +188,27 @@ def l2_weightmatch(label_json, input_json, label_img, input_video):
         except:
             continue
 
-    return high_score, highlight
+    score_json = {}
+    score_json['Frame_Num'] = highlight.split('.')[0]
+    score_json['Total_Score'] = high_score
+    score_json['Head'] = np.mean(score_detail[0:5])
+    score_json['LShoulder'] = score_detail[5]
+    score_json['RShoulder'] = score_detail[6]
+    score_json['LElbow'] = score_detail[7]
+    score_json['RElbow'] = score_detail[8]
+    score_json['LWrist'] = score_detail[9]
+    score_json['RWrist'] = score_detail[10]
+    score_json['LHip'] = score_detail[11]
+    score_json['RHip'] = score_detail[12]
+    score_json['LKnee'] = score_detail[13]
+    score_json['Rknee'] = score_detail[14]
+    score_json['LAnkle'] = score_detail[15]
+    score_json['RAnkle'] = score_detail[16]
+
+    for (k, v) in score_json.items():
+        print(k, ' : ', v, '\n')
+
+    return score_json
 
 
 def cos_sim(label_json, input_json, label_img, input_video):
