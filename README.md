@@ -17,9 +17,9 @@ AlphaPose를 backbone으로 사용하여 영상의 자세를 추정하였고, �
 ```
 # usage
 
-!python alphapose_compare.py --video /data/video/TKD_slow.mp4 --save_video --outdir /data/video/result
+!python alphapose_compare.py --cfg /configs/coco/resnet/256x192_res50_lr1e-3_1x.yaml --checkpoint /pretrained_models/fast_res50_256x192.pth --video /data/video/TKD_slow.mp4 --save_video --outdir /data/video/result
 
-!python alphapose_compare.py --image /data/image/TKD/TKD_6.png --save_img --outdir /data/image/result
+!python alphapose_compare.py --cfg /configs/coco/resnet/256x192_res50_lr1e-3_1x.yaml --checkpoint /pretrained_models/fast_res50_256x192.pth --image /data/image/TKD/TKD_6.png --save_img --outdir /data/image/result
 
 ## python
 
