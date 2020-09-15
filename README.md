@@ -1,6 +1,6 @@
 # PoseEstimation_Scoring-Your-Video <a href="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/Compare_pose.ipynb">[Demo]</a>
 
-## 주요 기능
+## 주요기능
 
 AlphaPose를 backbone으로 사용하여 영상의 자세를 추정하였고, 추정된 값을 사용하여 아래의 기능을 구현하였다.
 
@@ -95,7 +95,7 @@ Score = Compare_pose.l2_weightmatch("data/image/result/alphapose-TKD_6_l2norm.js
 
 <img src="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/img/DTW.jpg?raw=true" style="max-width:100%;margin-left: auto; margin-right: auto; display: block;">
 
-Frame의 흐름을 x축으로 놓고 추정된 자세의 값을 y축으로 놓았을때 위와 같은 그래프가 형성된다. 이때 Dynamic Time Warping은 기존의 방법(Euclidean)과 다르게 같은 시점을 기준으로 비교하는 것이 아닌 **값의 흐름을 기준으로 비교**하여, **두 영상간의 길이가 다르더라도 비교할 수 있게 된다.**
+frame의 흐름을 x축으로 놓고 추정된 자세의 값을 y축으로 놓았을때 위와 같은 그래프가 형성된다. 이때 Dynamic Time Warping은 기존의 방법(Euclidean)과 다르게 같은 시점을 기준으로 비교하는 것이 아닌 **값의 흐름을 기준으로 비교**하여, **두 영상간의 길이가 다르더라도 비교할 수 있게 된다.**
 
 ```
 # usage
