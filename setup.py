@@ -8,9 +8,9 @@ from Cython.Build import cythonize
 from setuptools import Extension, find_packages, setup
 from torch.utils.cpp_extension import BuildExtension, CUDAExtension
 
+PATCH = 0
 MAJOR = 0
 MINOR = 3
-PATCH = 0
 SUFFIX = ''
 SHORT_VERSION = '{}.{}.{}{}'.format(MAJOR, MINOR, PATCH, SUFFIX)
 
