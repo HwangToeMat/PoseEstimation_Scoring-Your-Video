@@ -468,7 +468,7 @@ def PCK_match(pick_pred, all_preds, ref_dist):
     return num_match_keypoints
 
 
-def write_json(all_results, outputpath, form=None, for_eval=False):
+def write_json(all_results, outputpath, form=None, for_eval=False, js_name = 'result'):
     '''
     all_result: result dict of predictions
     outputpath: output directory
@@ -551,6 +551,6 @@ def write_json(all_results, outputpath, form=None, for_eval=False):
                 with open(os.path.join(outputpath,'sep-json',name.split('.')[0]+'.json'),'w') as json_file:
                     json_file.write(json.dumps(json_results_cmu[name]))
     else:
-        with open(os.path.join(outputpath,'alphapose-results.json'), 'w') as json_file:
+        with open(os.path.join(outputpath, js_name + '.json'), 'w') as json_file:
             json_file.write(json.dumps(json_results))
 
