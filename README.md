@@ -109,4 +109,4 @@ Score = Compare_pose.dtw_compare("data/video/result/alphapose-TKD_test_l2norm.js
 
 <img src="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/208.png?raw=true?raw=true" style="max-width:100%;margin-left: auto; margin-right: auto; display: block;">
 
-기준점수를 설정하면 해당점수보다 낮을시 스켈레톤을 붉은색으로 표시하는 기능을 개발하였고, 리팩토링 후 공개할 예정입니다. 
+기준점수를 설정하면 해당점수보다 낮을시 **스켈레톤을 붉은색으로 표시**하는 기능을 개발하였고, 리팩토링 후 공개할 예정입니다. 
