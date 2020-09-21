@@ -71,8 +71,6 @@ class CustomDataset(data.Dataset):
 
         self.num_class = len(self.CLASSES)
 
-        self._loss_type = self._preset_cfg.get('LOSS_TYPE', 'MSELoss')
-
         self.upper_body_ids = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
         self.lower_body_ids = (11, 12, 13, 14, 15, 16)
 
@@ -82,8 +80,7 @@ class CustomDataset(data.Dataset):
                 input_size=self._input_size,
                 output_size=self._output_size,
                 rot=self._rot, sigma=self._sigma,
-                train=self._train, add_dpg=self._dpg,
-                loss_type=self._loss_type)
+                train=self._train, add_dpg=self._dpg)
         else:
             raise NotImplementedError
 

@@ -125,13 +125,12 @@ def check_input():
         inputpath = args.inputpath
         inputlist = args.inputlist
         inputimg = args.inputimg
-        im_names = []
 
         if len(inputlist):
             im_names = open(inputlist, 'r').readlines()
         elif len(inputpath) and inputpath != '/':
             for root, dirs, files in os.walk(inputpath):
-                im_names.append(files)
+                im_names = files
         elif len(inputimg):
             im_names = [inputimg]
 
@@ -176,8 +175,6 @@ if __name__ == "__main__":
 
     # Load pose model
     pose_model = builder.build_sppe(cfg.MODEL, preset_cfg=cfg.DATA_PRESET)
-
-    print(f'Loading pose model from {args.checkpoint}...')
     pose_model.load_state_dict(torch.load(
         args.checkpoint, map_location=args.device))
 
@@ -212,7 +209,6 @@ if __name__ == "__main__":
                             queueSize=queueSize).start()
 
     if mode == 'webcam':
-        print('Starting webcam demo, press Ctrl + C to terminate...')
         sys.stdout.flush()
         im_names_desc = tqdm(loop())
     else:
@@ -274,11 +270,8 @@ if __name__ == "__main__":
                     'det time: {dt:.4f} | pose time: {pt:.4f} | post processing: {pn:.4f}'.format(
                         dt=np.mean(runtime_profile['dt']), pt=np.mean(runtime_profile['pt']), pn=np.mean(runtime_profile['pn']))
                 )
-        print_finish_info()
         while(writer.running()):
             time.sleep(1)
-            print('===========================> Rendering remaining ' +
-                  str(writer.count()) + ' images in the queue...')
         writer.stop()
         det_loader.stop()
     except Exception as e:
@@ -286,14 +279,11 @@ if __name__ == "__main__":
         print('An error as above occurs when processing the images, please check it')
         pass
     except KeyboardInterrupt:
-        print_finish_info()
         # Thread won't be killed when press Ctrl+C
         if args.sp:
             det_loader.terminate()
             while(writer.running()):
                 time.sleep(1)
-                print('===========================> Rendering remaining ' +
-                      str(writer.count()) + ' images in the queue...')
             writer.stop()
         else:
             # subprocesses are killed, manually clear queues
@@ -309,4 +299,3 @@ if __name__ == "__main__":
         temp_name = input_source[0].split('/')[-1].split('.')[0]
     write_json(final_result, args.outputpath, form=args.format,
                for_eval=args.eval, js_name=temp_name)
-    print("Results have been written to json.")

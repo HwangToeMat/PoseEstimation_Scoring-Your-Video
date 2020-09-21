@@ -8,9 +8,9 @@ from Cython.Build import cythonize
 from setuptools import Extension, find_packages, setup
 from torch.utils.cpp_extension import BuildExtension, CUDAExtension
 
-PATCH = 0
 MAJOR = 0
 MINOR = 3
+PATCH = 0
 SUFFIX = ''
 SHORT_VERSION = '{}.{}.{}{}'.format(MAJOR, MINOR, PATCH, SUFFIX)
 
@@ -163,7 +163,7 @@ def get_install_requires():
         'tqdm', 'tensorboardx', 'easydict',
         'pyyaml',
         'torch>=1.1.0', 'torchvision>=0.3.0',
-        'munkres', 'timm==0.1.20', 'natsort'
+        'munkres', 'timm'
     ]
     # official pycocotools doesn't support Windows, we will install it by third-party git repository later
     if platform.system() != 'Windows':
