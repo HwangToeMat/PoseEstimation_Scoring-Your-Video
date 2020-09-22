@@ -406,7 +406,7 @@ def professor():
                 json.dump(prof_json, f)
             upload_blob('data/video/prof.json',
                         '/'.join(video.split('/')[:-1]) + '/prof.json')
-            return 'Success'
+            return prof_json
     except Exception as ex:  # 에러 종류
         print('에러가 발생 했습니다', ex)
         return 'Error'
@@ -439,7 +439,7 @@ def student():
                 json.dump(stu_json, f)
             upload_blob('data/video/stu.json',
                         '/'.join(video.split('/')[:-1]) + '/stu.json')
-            return 'Success'
+            return stu_json
     except Exception as ex:  # 에러 종류
         print('에러가 발생 했습니다', ex)
         return 'Error'
