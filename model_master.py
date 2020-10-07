@@ -62,11 +62,7 @@ def l2_normalize(jsonfile):  # 알파포즈에서 리턴된 json파일에서 l2_
     for _ in jsonfile:
         with open(_) as kps:
             json_kps = json.load(kps)
-
-        tmp = []
         for frame in range(len(json_kps)):
-            if json_kps[frame]['image_id'] in tmp:
-                continue
             keypoints = json_kps[frame]['keypoints']
             box = json_kps[frame]['box']
             temp_x = np.abs(box[0] - box[2]) / 2
@@ -103,7 +99,6 @@ def l2_normalize(jsonfile):  # 알파포즈에서 리턴된 json파일에서 l2_
                 keypoints[_ * 3] = (keypoints[_ * 3] - sub_x) / norm
                 keypoints[_ * 3 + 1] = (keypoints[_ * 3 + 1] - sub_y) / norm
                 json_kps[frame]['keypoints'] = keypoints
-            tmp.append(json_kps[frame]['image_id'])
         ret.append(json_kps)
     return ret
 
