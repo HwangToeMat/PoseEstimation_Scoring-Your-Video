@@ -18,7 +18,7 @@ AlphaPose를 backbone으로 사용하여 영상의 자세를 추정하였고, �
 
 2. crop된 박스에서 각 부위별 좌표값으로 L2 normalization을 한다.
 
-```
+```python
 # usage
 
 !python alphapose_compare.py --cfg /configs/coco/resnet/256x192_res50_lr1e-3_1x.yaml --checkpoint /pretrained_models/fast_res50_256x192.pth --video /data/video/TKD_slow.mp4 --save_video --outdir /data/video/result
@@ -52,7 +52,7 @@ Compare_pose.l2_normalize("data/video/result/alphapose-TKD_1.json")
 
 위와 같은 식을 사용하여 **두 자세간의 cosine similarity를 구하고, 이를 통해 유사도를 계산**하여 0~100사이 값으로 점수화 하였다.
 
-```
+```python
 # usage
 ## python
 
@@ -67,7 +67,7 @@ Score = Compare_pose.cos_sim("data/image/result/alphapose-TKD_6_l2norm.json","da
 
 위의 식에서 F<sub>Ck</sub>는 PoseEstimation에서 추정된 부위의 위치가 얼마나 정확한지를 나타내는 값이다. 따라서 두 자세를 비교할때 **더 정확히 추론된 부위에 가중치를 주어 계산**하는 방법이다. 이를 0~100사이 값으로 점수화 하여 출력하였다.
 
-```
+```python
 # usage
 ## python
 
@@ -80,7 +80,7 @@ Score = Compare_pose.weightmatch("data/image/result/alphapose-TKD_6_l2norm.json"
 
 두 자세를 비교할때 **더 정확히 추론된 부위에 가중치를 주어 계산**하는 방법이다. 이를 0~100사이 값으로 점수화 하여 출력하였다. 2번의 방법과 유사하지만 **L2 norm을 사용**하였다.
 
-```
+```python
 # usage
 ## python
 
@@ -101,7 +101,7 @@ Score = Compare_pose.l2_weightmatch("data/image/result/alphapose-TKD_6_l2norm.js
 
 frame의 흐름을 x축으로 놓고 추정된 자세의 값을 y축으로 놓았을때 위와 같은 그래프가 형성된다. 이때 Dynamic Time Warping은 기존의 방법(Euclidean)과 다르게 같은 시점을 기준으로 비교하는 것이 아닌 **값의 흐름을 기준으로 비교**하여, **두 영상간의 길이가 다르더라도 비교할 수 있게 된다.**
 
-```
+```python
 # usage
 ## python
 
