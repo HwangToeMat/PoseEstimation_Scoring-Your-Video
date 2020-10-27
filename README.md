@@ -1,5 +1,9 @@
 # PoseEstimation_Scoring-Your-Video <a href="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/Compare_pose.ipynb">[Demo]</a>
 
+## Demo
+
+<img src="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/vid/학생용.gif?raw=true" style="max-width:100%;margin-left: auto; margin-right: auto; display: block;">
+
 ## 주요기능
 
 AlphaPose를 backbone으로 사용하여 영상의 자세를 추정하였고, 추정된 값을 사용하여 아래의 기능을 구현하였다.
@@ -57,7 +61,7 @@ import Compare_pose
 Score = Compare_pose.cos_sim("data/image/result/alphapose-TKD_6_l2norm.json","data/video/result/alphapose-TKD_test_l2norm.json", "data/image/TKD/TKD_6.png", 'data/video/TKD_test.mp4')
 ```
 
-**2. Weight Matching(l1 norm)**
+**2. Weight Matching(L1 norm)**
 
 <img src="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/img/wm.png?raw=true" style="max-width:100%;margin-left: auto; margin-right: auto; display: block;">
 
@@ -72,9 +76,9 @@ import Compare_pose
 Score = Compare_pose.weightmatch("data/image/result/alphapose-TKD_6_l2norm.json","data/video/result/alphapose-TKD_test_l2norm.json", "data/image/TKD/TKD_6.png", 'data/video/TKD_test.mp4')
 ```
 
-**3. Weight Matching(l2 norm)**
+**3. Weight Matching(L2 norm)**
 
-두 자세를 비교할때 **더 정확히 추론된 부위에 가중치를 주어 계산**하는 방법이다. 이를 0~100사이 값으로 점수화 하여 출력하였다. 2번의 방법과 유사하지만 **l2 norm을 사용**하였다.
+두 자세를 비교할때 **더 정확히 추론된 부위에 가중치를 주어 계산**하는 방법이다. 이를 0~100사이 값으로 점수화 하여 출력하였다. 2번의 방법과 유사하지만 **L2 norm을 사용**하였다.
 
 ```
 # usage
