@@ -4,15 +4,15 @@
 
 AlphaPose를 backbone으로 사용하여 영상의 자세를 추정하였고, 추정된 값을 사용하여 아래의 기능을 구현하였다.
 
-### 0. AlphaPose에서 얻은 자세 추정값을 계산에 사용하기 위해 l2 normalization 한다.
+### 0. AlphaPose에서 얻은 자세 추정값을 계산에 사용하기 위해 L2 normalization 한다.
 
 <img src="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/img/img_0.jpg?raw=true" style="max-width:100%;margin-left: auto; margin-right: auto; display: block;">
 
-이미지마다 **높이와 너비가 다르고, 사람의 위치와 크기 또한 다르기때문에** 이를 고려하여 l2 normalization을 진행해야한다. 따라서 다음의 **두 가지 단계**를 통해 이를 구현하였다.
+이미지마다 **높이와 너비가 다르고, 사람의 위치와 크기 또한 다르기때문에** 이를 고려하여 L2 normalization을 진행해야한다. 따라서 다음의 **두 가지 단계**를 통해 이를 구현하였다.
 
 1. 검출된 사람의 바운딩 박스를 1대1 비율로 crop한다.
 
-2. crop된 박스에서 각 부위별 좌표값으로 l2 normalization을 한다.
+2. crop된 박스에서 각 부위별 좌표값으로 L2 normalization을 한다.
 
 ```
 # usage
