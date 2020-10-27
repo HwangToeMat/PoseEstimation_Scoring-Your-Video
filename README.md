@@ -109,8 +109,17 @@ import Compare_pose
 
 Score = Compare_pose.dtw_compare("data/video/result/alphapose-TKD_test_l2norm.json","data/video/result/alphapose-TKD_slow_l2norm.json")
 ```
-## Comming Soon
+
+### 3. 기준이 되는 점수가 입력되면 해당 점수보다 낮은 부위는 붉게 나타난다
 
 <img src="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/208.png?raw=true?raw=true" style="max-width:100%;margin-left: auto; margin-right: auto; display: block;">
 
-기준점수를 설정하면 해당점수보다 낮을시 **스켈레톤을 붉은색으로 표시**하는 기능을 개발하였고, 리팩토링 후 공개할 예정입니다. 
+기준점수를 설정하면 해당점수보다 낮을시 **스켈레톤을 붉은색으로 시각화**한다.
+
+### 4. 서버
+
+Flask를 사용하여 GCP환경에서 서버를 구축
+
+RestAPI방법으로 웹서버와 통신함
+
+동영상이나 사진, 결과 json파일은 GCP내의 버킷에 저장하고 웹서버와 버킷 주소를 주고 받음
