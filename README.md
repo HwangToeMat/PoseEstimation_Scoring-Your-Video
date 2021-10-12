@@ -1,5 +1,7 @@
 # PoseEstimation_Scoring-Your-Video <a href="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/Compare_pose.ipynb">[Demo]</a>
 
+## Blog<a href="https://hwangtoemat.github.io/ai-project/2020-08-01-%ED%8F%AC%EC%A6%88%EC%9D%B8%EC%8B%9D%EA%B8%B0%EB%B0%98-%EB%B9%84%EB%8C%80%EB%A9%B4-%EC%8B%A4%EA%B8%B0%EA%B5%90%EC%9C%A1-%ED%94%8C%EB%9E%AB%ED%8F%BC-%EA%B0%9C%EB%B0%9C/">[Link]
+
 ## Demo
 
 <img src="https://github.com/HwangToeMat/PoseEstimation_Scoring-Your-Video/blob/master/vid/학생용.gif?raw=true" style="max-width:100%;margin-left: auto; margin-right: auto; display: block;">
